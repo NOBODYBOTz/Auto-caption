@@ -67,7 +67,7 @@ async def start_cmd(bot, message):
     user_id = int(message.from_user.id)
     await insert(user_id)
     await message.reply_photo(photo=Rkn_Bots.RKN_PIC,
-        text=script.START_TXT.format(message.from_user.mention),
+        caption=script.START_TXT.format(message.from_user.mention),
         reply_markup=types.InlineKeyboardMarkup(
             [[
                 InlineKeyboardButton("➕️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ➕️", url=f"http://t.me/CustomCaptionBot?startchannel=true")
