@@ -67,13 +67,14 @@ async def start_cmd(bot, message):
     user_id = int(message.from_user.id)
     await insert(user_id)
     await message.reply_photo(photo=Rkn_Bots.RKN_PIC,
-        text=script.START_TXT,
-        reply_markup=types.InlineKeyboardMarkup([
-               [
+        text=script.START_TXT.format(message.from_user.mention),
+        reply_markup=types.InlineKeyboardMarkup(
+            [[
+                InlineKeyboardButton("➕️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ➕️", url=f"http://t.me/CustomCaptionBot?startchannel=true")
+                ],[
                 InlineKeyboardButton("Hᴇʟᴘ", callback_data="help"),
                 InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="about")
-               ]
-            ]))
+            ]]))
     
 
 # this command works on channels only 
@@ -152,6 +153,22 @@ async def auto_edit_caption(bot, message):
 # Don't Remove Credit 😔
 # Telegram Channel @RknDeveloper & @Rkn_Botz
 # Developer @RknDeveloperr
+
+@Client.on_callback_query(filters.regex(r'^start'))
+async def start(bot, query):
+    await query.message.edit_text(
+        text=script.START_TXT.format(query.from_user.mention),  
+        reply_markup=InlineKeyboardMarkup(
+            [[
+                InlineKeyboardButton("➕️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ➕️", url=f"http://t.me/CustomCaptionBot?startchannel=true")
+                ],[
+                InlineKeyboardButton("Hᴇʟᴘ", callback_data="help"),
+                InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="about")
+            ]]
+        ),
+        disable_web_page_preview=True
+    )
+
 @Client.on_callback_query(filters.regex(r'^help'))
 async def help(bot, query):
     await query.message.edit_text(
