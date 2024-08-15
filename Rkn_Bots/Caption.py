@@ -66,11 +66,13 @@ async def start_cmd(bot, message):
     user_id = int(message.from_user.id)
     await insert(user_id)
     await message.reply_photo(photo=Rkn_Bots.RKN_PIC,
-        caption=f"<b>Hey, {message.from_user.mention}\n\nI'm an auto-caption bot. I automatically edit captions for videos, audio files, and documents posted on channels.\n\nuse <code>/set_caption</code> to set caption\nUse<code>/delcaption</code> To delete caption and set caption to default.\n\nNote:All commands works on channels only</b>",
-        reply_markup=types.InlineKeyboardMarkup([[
-            types.InlineKeyboardButton('Main Channel', url='https://t.me/RknDeveloper'),
-            types.InlineKeyboardButton('Help Group', url='https://t.me/Rkn_Bots_Support')
-                                                  ]]))
+        text=script.HELP_TXT,
+        reply_markup=types.InlineKeyboardMarkup([
+               [
+                InlineKeyboardButton("Hᴇʟᴘ", callback_data="help"),
+                InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="about")
+               ]
+            ]))
     
 
 # this command works on channels only 
@@ -149,3 +151,32 @@ async def auto_edit_caption(bot, message):
 # Don't Remove Credit 😔
 # Telegram Channel @RknDeveloper & @Rkn_Botz
 # Developer @RknDeveloperr
+@Client.on_callback_query(filters.regex(r'^help'))
+async def help(bot, query):
+    await query.message.edit_text(
+        text=script.HELP_TXT,
+        reply_markup=InlineKeyboardMarkup(
+            [[
+            InlineKeyboardButton('About', callback_data='about')
+            ],[
+            InlineKeyboardButton('↩ ʙᴀᴄᴋ', callback_data='start')
+            ]]
+        ),
+        disable_web_page_preview=True    
+)
+
+
+@Client.on_callback_query(filters.regex(r'^about'))
+async def about(bot, query):
+    await query.message.edit_text(
+        text=script.ABOUT_TXT,
+        reply_markup=InlineKeyboardMarkup(
+            [[
+            InlineKeyboardButton('ʜᴏᴡ ᴛᴏ ᴜsᴇ ᴍᴇ ❓', callback_data='help')
+            ],[
+            InlineKeyboardButton('↩ ʙᴀᴄᴋ', callback_data='start')
+            ]]
+        ),
+        disable_web_page_preview=True 
+
+)
