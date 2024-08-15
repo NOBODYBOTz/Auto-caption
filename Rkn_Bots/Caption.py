@@ -70,9 +70,7 @@ async def start_cmd(bot, message):
         reply_markup=types.InlineKeyboardMarkup([[
             types.InlineKeyboardButton('Main Channel', url='https://t.me/RknDeveloper'),
             types.InlineKeyboardButton('Help Group', url='https://t.me/Rkn_Bots_Support')
-            ],[
-            types.InlineKeyboardButton('🔥 Source Code 🔥', url='https://github.com/RknDeveloper/Rkn-AutoCaptionBot')
-    ]]))
+                                                  ]]))
     
 
 # this command works on channels only 
@@ -93,6 +91,17 @@ async def setCaption(bot, message):
     else:
         await addCap(chnl_id, caption)
         return await message.reply(f"Successfully Updated Your Caption.\n\nYour New Caption: `{caption}`")
+
+
+@Client.on_message(filters.command("view") & filters.channel)
+async def viewCap(bot, message):
+    chnl_id = message.chat.id
+    cap_dets = await chnl_ids.find_one({"chnl_id": chnl_id})
+    if cap_dets:
+        await message.reply(f"Your Current Caption: {cap_dets['caption']}")
+    else:
+        await message.reply("You haven't set a custom caption yet.")
+
 
 
 # this command works on channels only 
