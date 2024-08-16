@@ -155,6 +155,15 @@ async def auto_edit_caption(bot, message):
 # Developer @RknDeveloperr
 #Here is the complete code with the new update:
 
+@Client.on_message(filters.private & filters.command("settings"))
+async def settings(client, message):
+    settings_menu = InlineKeyboardMarkup([
+        [InlineKeyboardButton("Add Channel", callback_data="add_channel")],
+        [InlineKeyboardButton("Customize Caption", callback_data="custom_caption")],
+        [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
+        [InlineKeyboardButton("Back", callback_data="start")]
+    ])
+    await message.reply_text("Settings:", reply_markup=settings_menu)
 
 @Client.on_callback_query(filters.regex(r'^add_channel'))
 async def add_channel(bot, query):
