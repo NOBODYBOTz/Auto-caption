@@ -5,8 +5,8 @@ import asyncio
 import requests
 import time
 
-restart_channel_id = -
-bot_tokens = ["bot_token_1", "bot_token_2", "bot_token_3"]
+restart_channel_id = -1001955617973
+bot_tokens = ["7416279313:AAGZiCpxa_J6Zzu3jEE91nZeF0M1jp5NrzA"]
 
 app = Client("caption_bot")
 
