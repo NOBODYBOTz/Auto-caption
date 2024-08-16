@@ -153,23 +153,13 @@ async def auto_edit_caption(bot, message):
 # Don't Remove Credit 😔
 # Telegram Channel @RknDeveloper & @Rkn_Botz
 # Developer @RknDeveloperr
-Here is the complete code with the new update:
+#Here is the complete code with the new update:
 
-```
-@Client.on_message(filters.private & filters.command("settings"))
-async def settings(client, message):
-    settings_menu = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Add Channel", callback_data="add_channel")],
-        [InlineKeyboardButton("Customize Caption", callback_data="custom_caption")],
-        [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
-        [InlineKeyboardButton("Back", callback_data="start")]
-    ])
-    await message.reply_text("Settings:", reply_markup=settings_menu)
 
 @Client.on_callback_query(filters.regex(r'^add_channel'))
 async def add_channel(bot, query):
     await query.message.edit_text("Add Channel:\n\nEnter the channel ID or username:")
-    channel_input = await bot.wait_for_message(chat_id=(link unavailable), filters=filters.text)
+    channel_input = await bot.wait_for_message(chat_id=query.chat_id, filters=filters.text)
     
     try:
         if channel_input.text.startswith('-100'):
@@ -181,9 +171,9 @@ async def add_channel(bot, query):
             await query.message.edit_text("Error: Invalid channel ID or username.")
             return
         
-        await addCap((link unavailable), None)
+        await addCap(channel_input.text, None)
         await query.message.edit_text(f"Channel Added: {channel.title}")
-        await bot.set_session(query.from_user.id, {"channel_id": (link unavailable), "channel_title": channel.title})
+        await bot.set_session(query.chat_id, {"channel_id": channel_input.text, "channel_title": channel.title})
     except Exception as e:
         await query.message.edit_text(f"Error: {e}")
 
@@ -191,7 +181,7 @@ async def add_channel(bot, query):
 async def custom_caption(bot, query):
     await query.message.edit_text("Customize Caption:\n\nEnter your custom caption:")
     custom_caption = await bot.wait_for_message(chat_id=query.chat_id, filters=filters.text)
-    session = await bot.get_session(query.from_user.id)
+    session = await bot.get_session(query.chat_id)
     channel_id = session["channel_id"]
     channel_username = session["channel_username"]
     await updateCap(channel_id, custom_caption.text)
@@ -199,7 +189,7 @@ async def custom_caption(bot, query):
 
 @Client.on_callback_query(filters.regex(r'^delete_caption'))
 async def delete_caption(bot, query):
-    session = await bot.get_session(query.from_user.id)
+    session = await bot.get_session(query.chat_id)
     if "channel_id" in session:
         channel_id = session["channel_id"]
         channel_username = session["channel_username"]
@@ -207,7 +197,6 @@ async def delete_caption(bot, query):
         await query.message.edit_text(f"Caption Deleted for @{channel_username}")
     else:
         await query.message.edit_text("No Channel Added Yet!")
-```
 
 @Client.on_callback_query(filters.regex(r'^start'))
 async def start(bot, query):
