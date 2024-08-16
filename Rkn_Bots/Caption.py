@@ -154,6 +154,31 @@ async def auto_edit_caption(bot, message):
 # Telegram Channel @RknDeveloper & @Rkn_Botz
 # Developer @RknDeveloperr
 
+```
+@Client.on_message(filters.private & filters.command("settings"))
+async def settings(client, message):
+    settings_menu = InlineKeyboardMarkup([
+        [InlineKeyboardButton("Add Channel", callback_data="add_channel")],
+        [InlineKeyboardButton("Customize Caption", callback_data="custom_caption")],
+        [InlineKeyboardButton("Back", callback_data="start")]
+    ])
+    await message.reply_text("**Settings:**", reply_markup=settings_menu)
+
+@Client.on_callback_query(filters.regex(r'^add_channel'))
+async def add_channel(bot, query):
+    await query.message.edit_text("**Add Channel:**\n\nEnter the channel username:")
+    channel_username = await bot.wait_for_message(chat_id=(link unavailable), filters=filters.text)
+    await addCap(channel_username.text, None)
+    await query.message.edit_text(f"**Channel Added:** @{channel_username.text}")
+
+@Client.on_callback_query(filters.regex(r'^custom_caption'))
+async def custom_caption(bot, query):
+    await query.message.edit_text("**Customize Caption:**\n\nEnter your custom caption:")
+    custom_caption = await bot.wait_for_message(chat_id=(link unavailable), filters=filters.text)
+    await updateCap((link unavailable), custom_caption.text)
+    await query.message.edit_text(f"**Caption Updated:** {custom_caption.text}")
+```
+
 @Client.on_callback_query(filters.regex(r'^start'))
 async def start(bot, query):
     await query.message.edit_text(
