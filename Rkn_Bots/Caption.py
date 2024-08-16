@@ -11,7 +11,7 @@ from .database import total_user, getid, delete, addCap, updateCap, insert, chnl
 from pyrogram.errors import FloodWait
 from Script import*
 
-@Client.on_message(filters.private & filters.user(Rkn_Bots.ADMIN)  & filters.command(["rknusers"]))
+@Client.on_message(filters.private & filters.user(Rkn_Bots.ADMIN)  & filters.command(["status"]))
 async def all_db_users_here(client, message):
     start_t = time.time()
     rkn = await message.reply_text("Processing...")
