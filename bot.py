@@ -1,4 +1,4 @@
-```
+
 from aiohttp import web
 from pyrogram import Client, filters
 from config import Rkn_Bots, Rkn_Bots as Rkn_Botz
@@ -85,4 +85,3 @@ class Rkn_AutoCaptionBot(Client):
             await asyncio.sleep(3600)
 
 Rkn_AutoCaptionBot().run()
-```
