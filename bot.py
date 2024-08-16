@@ -49,4 +49,3 @@ async def caption_photo(client, message):
     # Your existing caption bot code here
 
 app.run()
-```
