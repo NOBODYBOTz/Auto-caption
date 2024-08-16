@@ -15,7 +15,7 @@ class Rkn_AutoCaptionBot(Client):
             plugins={"root": "Rkn_Bots"},
             sleep_threshold=15,
         )
-        self.add_handler(self.bot_status, filters.command("botstatus")
+        self.add_handler(self.bot_status, filters.command("botstatus"))
 
     async def start(self):
         await super().start()
