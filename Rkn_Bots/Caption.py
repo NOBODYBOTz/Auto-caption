@@ -153,7 +153,9 @@ async def auto_edit_caption(bot, message):
 # Don't Remove Credit 😔
 # Telegram Channel @RknDeveloper & @Rkn_Botz
 # Developer @RknDeveloperr
+Here is the complete code with the new update:
 
+```
 @Client.on_message(filters.private & filters.command("settings"))
 async def settings(client, message):
     settings_menu = InlineKeyboardMarkup([
@@ -166,11 +168,24 @@ async def settings(client, message):
 
 @Client.on_callback_query(filters.regex(r'^add_channel'))
 async def add_channel(bot, query):
-    await query.message.edit_text("Add Channel:\n\nEnter the channel username:")
-    channel_username = await bot.wait_for_message(chat_id=, filters=filters.text)
-    channel_id = await addCap(channel_username.text, None)
-    await query.message.edit_text(f"Channel Added: @{channel_username.text}")
-    await bot.set_session(query.from_user.id, {"channel_id": channel_id, "channel_username": channel_username.text})
+    await query.message.edit_text("Add Channel:\n\nEnter the channel ID or username:")
+    channel_input = await bot.wait_for_message(chat_id=(link unavailable), filters=filters.text)
+    
+    try:
+        if channel_input.text.startswith('-100'):
+            channel = await bot.get_chat(int(channel_input.text))
+        else:
+            channel = await bot.get_chat(channel_input.text)
+        
+        if channel.type != "channel":
+            await query.message.edit_text("Error: Invalid channel ID or username.")
+            return
+        
+        await addCap((link unavailable), None)
+        await query.message.edit_text(f"Channel Added: {channel.title}")
+        await bot.set_session(query.from_user.id, {"channel_id": (link unavailable), "channel_title": channel.title})
+    except Exception as e:
+        await query.message.edit_text(f"Error: {e}")
 
 @Client.on_callback_query(filters.regex(r'^custom_caption'))
 async def custom_caption(bot, query):
@@ -192,6 +207,7 @@ async def delete_caption(bot, query):
         await query.message.edit_text(f"Caption Deleted for @{channel_username}")
     else:
         await query.message.edit_text("No Channel Added Yet!")
+```
 
 @Client.on_callback_query(filters.regex(r'^start'))
 async def start(bot, query):
