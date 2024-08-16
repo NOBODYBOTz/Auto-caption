@@ -167,14 +167,14 @@ async def settings(client, message):
 @Client.on_callback_query(filters.regex(r'^add_channel'))
 async def add_channel(bot, query):
     await query.message.edit_text("**Add Channel:**\n\nEnter the channel username:")
-    channel_username = await bot.wait_for_message(chat_id=(link unavailable), filters=filters.text)
+    channel_username = await bot.wait_for_message(chat_id=query.chat.id, filters=filters.text)
     await addCap(channel_username.text, None)
     await query.message.edit_text(f"**Channel Added:** @{channel_username.text}")
 
 @Client.on_callback_query(filters.regex(r'^custom_caption'))
 async def custom_caption(bot, query):
     await query.message.edit_text("**Customize Caption:**\n\nEnter your custom caption:")
-    custom_caption = await bot.wait_for_message(chat_id=(link unavailable), filters=filters.text)
+    custom_caption = await bot.wait_for_message(chat_id=query.chat.id, filters=filters.text)
     await updateCap((link unavailable), custom_caption.text)
     await query.message.edit_text(f"**Caption Updated:** {custom_caption.text}")
 ```
