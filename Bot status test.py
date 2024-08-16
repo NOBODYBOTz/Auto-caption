@@ -11,13 +11,13 @@ bot_tokens = ["bot_token_1", "bot_token_2", "bot_token_3"]
 app = Client("caption_bot")
 
 def get_bot_info(token):
-    url = f"(link unavailable)"
+    url = f"https://api.telegram.org/bot{token}/getMe"
     response = requests.get(url)
     data = response.json()
     return data["result"]["name"], data["result"]["username"]
 
 async def check_bot_status(token):
-    url = f"(link unavailable)"
+    url = f"https://api.telegram.org/bot{token}/getMe"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
