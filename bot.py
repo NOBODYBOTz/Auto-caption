@@ -1,4 +1,5 @@
-#Here is the merged file without the extra text:
+#Here is the modified file with the changes I suggested:
+
 from aiohttp import web
 from pyrogram import Client, filters
 from config import Rkn_Bots, Rkn_Bots as Rkn_Botz
@@ -15,6 +16,7 @@ class Rkn_AutoCaptionBot(Client):
             plugins={"root": "Rkn_Bots"},
             sleep_threshold=15,
         )
+        self.add_handler(self.bot_status, filters.command("botstatus"))
 
     async def start(self):
         await super().start()
@@ -65,8 +67,7 @@ class Rkn_AutoCaptionBot(Client):
                 else:
                     return False
 
-    @Rkn_AutoCaptionBot.on_message(filters.command("botstatus"))
-    async def bot_status(client, message):
+    async def bot_status(self, message):
         bots_to_check = []
         for token in ["7416279313:AAGZiCpxa_J6Zzu3jEE91nZeF0M1jp5NrzA"]:
             name, username = Rkn_AutoCaptionBot.get_bot_info(token)
@@ -85,3 +86,5 @@ class Rkn_AutoCaptionBot(Client):
             await asyncio.sleep(3600)
 
 Rkn_AutoCaptionBot().run()
+
+#This should fix the issue. Let me know if you have any further questions or need additional assistance!
