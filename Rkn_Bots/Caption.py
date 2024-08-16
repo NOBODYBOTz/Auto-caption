@@ -168,7 +168,7 @@ async def settings(client, message):
 @Client.on_callback_query(filters.regex(r'^add_channel'))
 async def add_channel(bot, query):
     await query.message.edit_text("Add Channel:\n\nEnter the channel ID or username:")
-    channel_input = await bot.wait_for_message(chat_id=query.chat_id, filters=filters.text)
+    channel_input = await bot.wait_for_message(chat_id=query.message.chat_id, filters=filters.text)
     
     try:
         if channel_input.text.startswith('-100'):
@@ -182,15 +182,15 @@ async def add_channel(bot, query):
         
         await addCap(channel_input.text, None)
         await query.message.edit_text(f"Channel Added: {channel.title}")
-        await bot.set_session(query.chat_id, {"channel_id": channel_input.text, "channel_title": channel.title})
+        await bot.set_session(query.message.chat_id, {"channel_id": channel_input.text, "channel_title": channel.title})
     except Exception as e:
         await query.message.edit_text(f"Error: {e}")
 
 @Client.on_callback_query(filters.regex(r'^custom_caption'))
 async def custom_caption(bot, query):
     await query.message.edit_text("Customize Caption:\n\nEnter your custom caption:")
-    custom_caption = await bot.wait_for_message(chat_id=query.chat_id, filters=filters.text)
-    session = await bot.get_session(query.chat_id)
+    custom_caption = await bot.wait_for_message(chat_id=query.message.chat_id, filters=filters.text)
+    session = await bot.get_session(query.message.chat_id)
     channel_id = session["channel_id"]
     channel_username = session["channel_username"]
     await updateCap(channel_id, custom_caption.text)
@@ -198,7 +198,7 @@ async def custom_caption(bot, query):
 
 @Client.on_callback_query(filters.regex(r'^delete_caption'))
 async def delete_caption(bot, query):
-    session = await bot.get_session(query.chat_id)
+    session = await bot.get_session(query.message.chat_id)
     if "channel_id" in session:
         channel_id = session["channel_id"]
         channel_username = session["channel_username"]
