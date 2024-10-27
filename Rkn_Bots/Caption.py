@@ -70,7 +70,7 @@ async def start_cmd(bot, message):
         caption=script.START_TXT.format(message.from_user.mention),
         reply_markup=types.InlineKeyboardMarkup(
             [[
-                InlineKeyboardButton("➕️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ➕️", url=f"http://t.me/CustomCaptionBot?startchannel=true")
+                InlineKeyboardButton("➕️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ➕️", url=f"http://t.me/AUTO_CAPTION_A1_BOT?startchannel=true")
                 ],[
                 InlineKeyboardButton("Hᴇʟᴘ", callback_data="help"),
                 InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="about")
