@@ -138,7 +138,12 @@ async def auto_edit_caption(bot, message):
 
                 # Get the caption of the file (if exists)
                 file_caption = message.caption or "No caption"
-                
+                file_caption = (
+                    re.sub(r"@\w+\s*", "", file_caption)
+                    .replace("_", " ")
+                    .replace(".", " ")                 
+                )
+
                 cap_dets = await chnl_ids.find_one({"chnl_id": chnl_id})
                 try:
                     if cap_dets:
