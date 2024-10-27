@@ -133,8 +133,7 @@ async def auto_edit_caption(bot, message):
                 file_name = (
                     re.sub(r"@\w+\s*", "", file_name)
                     .replace("_", " ")
-                    .replace(".", " ")
-                    .replace("[]"," ")
+                    .replace(".", " ")                 
                 )
 
                 # Get the caption of the file (if exists)
